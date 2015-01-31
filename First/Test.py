@@ -11,7 +11,7 @@ def init_sqLite():
     Oh yes it is.
     '''
     
-    conn = None
+    #conn = None
     
     import sqlite3
     conn = sqlite3.connect('TestDB.db')
@@ -25,21 +25,27 @@ def init_sqLite():
         
         print("SQLite version: %s" % data)
         
-        c.execute("DROP TABLE IF EXISTS Roster")
-        c.execute("CREATE TABLE Roster(First TEXT, Last TEXT, MI CHARACTER, Age INT)")
-        c.execute("INSERT INTO Roster VALUES('Robert', 'Smith', 'G', 23)")
-        c.execute("INSERT INTO Roster VALUES('Ralph', 'Jenkins', 'A', 47)")
-        c.execute("INSERT INTO Roster VALUES('Eddie', 'Patton', 'S', 34)")
-        c.execute("INSERT INTO Roster VALUES('Ashley', 'Locke', 'A', 12)")
+        #c.execute("DROP TABLE IF EXISTS Roster")
+        #Test to see if table exists.
+        #If it does not, create it, and populate it.
+        c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='Roster'")
+        if c.fetchone() == None:
+            print("Creating table.")
+            c.execute("CREATE TABLE Roster(First TEXT, Last TEXT, MI CHARACTER, Age INT)")
+            c.execute("INSERT INTO Roster VALUES('Robert', 'Smith', 'G', 23)")
+            c.execute("INSERT INTO Roster VALUES('Ralph', 'Jenkins', 'A', 47)")
+            c.execute("INSERT INTO Roster VALUES('Eddie', 'Patton', 'S', 34)")
+            c.execute("INSERT INTO Roster VALUES('Ashley', 'Locke', 'A', 12)")
+        else :
+            #c.execute("DROP TABLE IF EXISTS Roster")
+            print("Table already exists.")
+        
+        cursor = conn.execute("SELECT Last, First, MI, Age FROM Roster")
     
-    
-    cursor = conn.execute("SELECT Last, First, MI, Age from Roster")
-    
-    print("Starting to list data.")
-    
-    for row in cursor:
-        print("Name = %s, %s %s" % (row[0], row[1], row[2]))
-        print("Age = %d" % row[3])
+        print("Starting to list data.")
+        for row in cursor:
+            print("Name = %s, %s %s." % (row[0], row[1], row[2]))
+            print("Age = %d" % row[3])
     
     print("Huzzah, we are done.")
     conn.close()
