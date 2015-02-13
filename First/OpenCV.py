@@ -17,3 +17,4 @@ class OpenCV_Test(object):
     
     def TempFunct(self):
         print('In OpenCV_Test::TempFunct')
+        
