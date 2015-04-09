@@ -54,6 +54,8 @@ class OpenCV_Test(object):
         #Find Contours
         ''' findContours(connected, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE, Point(0, 0)); '''
         contours, hierarchy = cv2.findContours(connected, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
+        #This is a potential solution for the offset of Point(0,0) I think.
+        #contours, hierarchy = cv2.findContours(connected, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE, (0,0))
         
         '''
         #Filter Contours
