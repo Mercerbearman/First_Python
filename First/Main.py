@@ -24,4 +24,5 @@ if __name__ == '__main__':
     print('Class {0} - Interface {1}'.format(OpenCV_Test, allOpenCV_TestFuncts))
     
     sq.sqLite_Work()
+    cv.Initial()
     pass
